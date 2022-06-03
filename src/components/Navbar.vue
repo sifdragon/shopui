@@ -129,7 +129,7 @@ export default {
       localStorage.removeItem("token");
       this.token = null;
       this.$emit("resetCartCount");
-      this.$router.push({ name: "Home" });
+      this.$router.push({ name: "HomeView" });
     },
   },
   mounted() {

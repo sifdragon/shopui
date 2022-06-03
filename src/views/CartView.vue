@@ -61,6 +61,9 @@
     <!-- display the price -->
     <div class="total-cost pt-2 text-right">
       <h5>Total : ${{ totalCost.toFixed(2) }}</h5>
+      <button type="button" class="btn btn-primary confirm" @click="checkout">
+        Confirm order
+      </button>
     </div>
   </div>
 </template>
@@ -96,6 +99,9 @@ export default {
             }
           })
           .catch((err) => console.log("err", err));
+    },
+    checkout() {
+      this.$router.push({ name: 'Checkout' });
     },
   },
   mounted() {

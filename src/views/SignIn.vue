@@ -47,7 +47,7 @@ export default {
               icon: "success",
             });
             this.$emit("fetchData");
-            this.$router.push({ name: "Home" });
+            this.$router.push({ name: "HomeView" });
           })
           .catch((err) => console.log("err", err));
     },

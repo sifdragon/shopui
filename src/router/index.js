@@ -13,6 +13,9 @@ import SignUp from "../views/SignUp";
 import SignIn from '../views/SignIn';
 import WishList from "../views/Product/WishList";
 import Cart from '../views/CartView';
+import Success from '../views/Payment/SuccessView';
+import Failed from '../views/Payment/FailedView';
+import Checkout from '../views/Payment/CheckoutView';
 
 const routes = [
   {
@@ -93,8 +96,23 @@ const routes = [
     path: '/cart',
     name: 'Cart',
     component: Cart
-  }
-]
+  },
+  {
+    path: '/payment/success',
+    name: 'PaymentSuccess',
+    component: Success,
+  },
+  {
+    path: '/payment/failed',
+    name: 'PaymentFail',
+    component: Failed,
+  },
+  {
+    path: '/checkout',
+    name: 'Checkout',
+    component: Checkout,
+  },
+];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
