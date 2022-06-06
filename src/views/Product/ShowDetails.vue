@@ -15,6 +15,26 @@
           {{ product.description }}
         </p>
         <div class="d-flex flex-row justify-content-between">
+        <div class="input-group col-md-3 col-4 p-0">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Rating</span>
+          </div>
+          <input type="number" class="form-control" v-model="rating" />
+        </div>
+
+          <div class="input-group col-md-3 col-4 p-0">
+            <button
+                class="btn"
+                type="button"
+                id="add-rating-button"
+                @click="addRating"
+            >
+              Rate
+            </button>
+          </div>
+        </div>
+
+        <div class="d-flex flex-row justify-content-between">
           <div class="input-group col-md-3 col-4 p-0">
             <div class="input-group-prepend">
               <span class="input-group-text">Quantity</span>
@@ -32,6 +52,7 @@
               Add to Cart
             </button>
           </div>
+
         </div>
         <div class="features pt-3">
           <h5><strong>Features</strong></h5>
@@ -64,6 +85,7 @@ export default {
       category: {},
       quantity: 1,
       wishListString: "Add to wishlist",
+      rating: 5,
     };
   },
   props: ["baseURL", "products", "categories"],
@@ -130,6 +152,33 @@ export default {
           })
           .catch((err) => console.log("err", err));
     },
+    addRating() {
+      if (!this.token) {
+        // user is not logged in
+        // show some error
+        swal({
+          text: "please login to rate a product",
+          icon: "error",
+        });
+        return;
+      }
+      // add a rating
+      axios
+          .post(`${this.baseURL}product/rate?token=${this.token}`, {
+            productId: this.id,
+            categoryId: this.category.id,
+            rating: this.rating
+          })
+          .then((res) => {
+            if (res.status == 201) {
+              swal({
+                text: "Added a rating",
+                icon: "success",
+              });
+            }
+          })
+          .catch((err) => console.log("err", err));
+    },
   },
   mounted() {
     this.id = this.$route.params.id;
@@ -150,6 +199,10 @@ export default {
 }
 
 #add-to-cart-button {
+  background-color: #febd69;
+}
+
+#add-rating-button {
   background-color: #febd69;
 }
 </style>
