@@ -58,6 +58,20 @@
       <div class="col-12"><hr /></div>
     </div>
 
+    <div v-if="token != null" class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+          <h2 class="pt-3"> Recommendations based on your cart</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div v-for="index in this.recommendationsSize" :key="index"
+             class="col-md-6 col-xl-4 col-12 pt-3 justify-content-around d-flex">
+          <ProductBox :product="recommendations[index-1]" />
+        </div>
+      </div>
+    </div>
+
     <!-- display the price -->
     <div class="total-cost pt-2 text-right">
       <h5>Total : ${{ totalCost.toFixed(2) }}</h5>
@@ -75,6 +89,8 @@ export default {
       cartItems: [],
       token: null,
       totalCost: 0,
+      recommendations: null,
+      recommendationsSize: 0,
     };
   },
   props: ["baseURL"],
@@ -100,6 +116,17 @@ export default {
           })
           .catch((err) => console.log("err", err));
     },
+    getRecommendations(){
+      axios
+          .get(`${this.baseURL}recs/getCartRecs/?token=${this.token}`)
+          .then((res) => {
+            const result = res.data;
+            this.recommendations = result;
+            this.recommendationsSize = this.recommendations.length;
+            console.log(this.recommendations);
+          })
+          .catch((err) => console.log("err", err));
+    },
     checkout() {
       this.$router.push({ name: 'Checkout' });
     },
@@ -107,6 +134,7 @@ export default {
   mounted() {
     this.token = localStorage.getItem("token");
     this.listCartItems();
+    this.getRecommendations();
   },
 };
 </script>
