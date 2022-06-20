@@ -13,8 +13,7 @@
     <div
         v-for="cartItem in cartItems"
         :key="cartItem.id"
-        class="row mt-2 pt-3 justify-content-around"
-    >
+        class="row mt-2 pt-3 justify-content-around">
       <div class="col-2"></div>
       <div class="col-md-3 embed-responsive embed-responsive-16by9">
         <img
@@ -58,10 +57,10 @@
       <div class="col-12"><hr /></div>
     </div>
 
-    <div v-if="token != null" class="container">
+    <div v-if="cartItems" class="container">
       <div class="row">
         <div class="col-12 text-center">
-          <h2 class="pt-3"> Recommendations based on your cart</h2>
+          <h2 class="pt-3"> Recommendations</h2>
         </div>
       </div>
       <div class="row">
@@ -83,13 +82,15 @@
 </template>
 <script>
 import axios from "axios";
+import ProductBox from "@/components/ProductBox";
 export default {
+  components: {ProductBox},
   data() {
     return {
       cartItems: [],
       token: null,
       totalCost: 0,
-      recommendations: null,
+      recommendations: [],
       recommendationsSize: 0,
     };
   },

@@ -1,5 +1,5 @@
 <template>
-  <div class="card h-100 w-100">
+  <div class="card h-70 w-100">
     <div class="embed-responsive embed-responsive-16by9">
       <img
           class="card-img-top embed-responsive-item"
@@ -12,7 +12,7 @@
         <h5 class="card-title">{{ product.name }}</h5>
       </router-link>
       <p class="card-text">
-        {{ product.description.substring(0, 65) }}...
+        {{ product.description.substring(0, 65) }}
       </p>
       <router-link :to="{name: 'EditProduct', params: {id: product.id}}"
                    v-show="$route.name == 'AdminProduct'">

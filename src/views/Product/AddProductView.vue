@@ -53,7 +53,8 @@ export default {
       name: null,
       description: null,
       imageUrl: null,
-      price: null
+      price: null,
+      token: null
     }
   },
   methods: {
@@ -65,7 +66,7 @@ export default {
         imageUrl: this.imageUrl,
         price: this.price
       };
-      axios.post(this.baseURL+"product/add", newProduct)
+      axios.post(`${this.baseURL}product/add/?token=${this.token}`, newProduct)
           .then(() => {
             this.$router.push({name: 'AdminProduct'});
             swal({
@@ -76,6 +77,9 @@ export default {
         console.log("err", err);
       })
     }
-  }
+  },
+  mounted() {
+    this.token = localStorage.getItem("token");
+  },
 }
 </script>

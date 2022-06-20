@@ -62,11 +62,11 @@
             <router-link class="dropdown-item" :to="{ name: 'HomeView' }"
             >Home
             </router-link>
-            <router-link class="dropdown-item" :to="{ name: 'HomeView' }"
-            >Product
+            <router-link class="dropdown-item" :to="{ name: 'AdminProduct' }"
+            >Products
             </router-link>
-            <router-link class="dropdown-item" :to="{ name: 'HomeView' }"
-            >Category
+            <router-link class="dropdown-item" :to="{ name: 'Category' }"
+            >Categories
             </router-link>
           </div>
         </li>

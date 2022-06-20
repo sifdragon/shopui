@@ -14,15 +14,26 @@
         <p>
           {{ product.description }}
         </p>
+<!--        add a friend-->
+        <p> Seller: {{ product.userName }} </p>
+        <button
+            class="btn btn-primary btn-sm"
+            type="button"
+            id="add-rating-button"
+            @click="addFriend"
+        >
+          Add this user as a friend
+        </button>
+
         <div class="d-flex flex-row justify-content-between">
-        <div class="input-group col-md-3 col-4 p-0">
+        <div class="input-group col-md-3 col-4 p-1">
           <div class="input-group-prepend">
             <span class="input-group-text">Rating</span>
           </div>
           <input type="number" class="form-control" v-model="rating" />
         </div>
 
-          <div class="input-group col-md-3 col-4 p-0">
+          <div class="input-group col-md-3 col-4 p-1">
             <button
                 class="btn"
                 type="button"
@@ -170,9 +181,35 @@ export default {
             rating: this.rating
           })
           .then((res) => {
-            if (res.status == 201) {
+            if (res.status == 200) {
               swal({
                 text: "Added a rating",
+                icon: "success",
+              });
+            }
+          })
+          .catch((err) => console.log("err", err));
+    },
+    addFriend() {
+      if (!this.token) {
+        // user is not logged in
+        // show some error
+        swal({
+          text: "please login to add a friend",
+          icon: "error",
+        });
+        return;
+      }
+      // add a friend
+      axios
+          .post(`${this.baseURL}user/addFriend?token=${this.token}`, {
+            productId: this.id,
+            userName: this.product.userName
+          })
+          .then((res) => {
+            if (res.status == 200) {
+              swal({
+                text: "Added friend",
                 icon: "success",
               });
             }
